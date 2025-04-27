@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Form</title>
+</head>
+<body>
+  <h1>Book Your Flight</h1>
+  <form id="bookingForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="flightID">Enter Flight ID:</label><br>
+    <input type="text" id="flightID" name="flightID" required><br><br>
+    
+    <label for="email">Email Address:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    
+    <input type="submit" value="Submit">
+  </form>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("your_emailjs_user_id");  // Replace with your EmailJS user ID
+
+    document.getElementById("bookingForm").addEventListener("submit", function(event){
+      event.preventDefault();
+
+      const formData = {
+        name: document.getElementById("name").value,
+        flightID: document.getElementById("flightID").value,
+        email: document.getElementById("email").value,
+      };
+
+      emailjs.send("service_id", "template_id", formData)
+        .then(function(response) {
+          alert('Booking confirmation sent!');
+        }, function(error) {
+          alert('Error: ' + error);
+        });
+    });
+  </script>
+</body>
+</html>
